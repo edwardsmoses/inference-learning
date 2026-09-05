@@ -46,13 +46,46 @@ reassignment, and `[3]f32` is an array of three 32-bit floating-point numbers.
 The `for` loop walks through the input and weight arrays together.
 This lesson uses `std.debug.print`, which writes to stderr.
 
+## Lesson 2: a layer of neurons
+
+```sh
+zig run lessons/02_layer.zig
+```
+
+All three neurons receive the same input vector `[2, 3, 1]`. Each row in the
+weight matrix belongs to one neuron:
+
+```text
+Weights                 Inputs      Weighted sums
+[ 0.5  -1   2 ]         [ 2 ]        [  0 ]
+[ 1     1   0 ]    ×    [ 3 ]   =    [  5 ]
+[-1     0  -1 ]         [ 1 ]        [ -3 ]
+
+Add biases:  [0, 5, -3] + [0.5, -1, 0.5] = [0.5, 4, -2.5]
+Apply ReLU:  [0.5, 4, 0]
+```
+
+Matrix-vector multiplication computes only the weighted sums. Bias addition
+and activation are separate steps. A layer can have a different number of
+neurons than inputs: two neurons receiving three inputs need two rows of
+three weights and produce two outputs.
+
+Zig's `[3][3]f32` is an array of three arrays. The outer loop visits neurons;
+the inner loop visits one neuron's weights and the shared inputs. `0..`
+provides the zero-based index used to store each output. `undefined` leaves
+the output array uninitialized: every element must be written before it is
+read, as this loop does.
+
+Exercise: change only the second neuron's last weight from `0.0` to `2.0`.
+Predict the complete output vector, then run the program to check it.
+
 ## Agreed scope and route
 
 We work in small steps: explain the concept, try an exercise, then build on it.
 Correctness and understanding come before performance.
 
-1. One neuron — current lesson.
-2. Dot products, matrix-vector multiplication, and the model's other operations.
+1. One neuron — lesson 1.
+2. Matrix-vector multiplication — lesson 2; other model operations follow.
 3. Read trained weights and tokenize text.
 4. Run the model repeatedly to generate text in the terminal.
 5. Add one local HTTP endpoint accepting a prompt and an output limit,
@@ -72,5 +105,5 @@ claiming correctness. Reference revision and model checksum will be recorded
 when we integrate them.
 
 This model is for continuing short stories, not a general chat assistant.
-No checkpoint is downloaded yet. The neuron lesson is only the starting
-exercise; the inference engine and HTTP server are not implemented yet.
+No checkpoint is downloaded yet. The lessons are starting exercises;
+the inference engine and HTTP server are not implemented yet.
