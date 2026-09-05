@@ -35,7 +35,7 @@ pub fn main() void {
     }
 
     // Every element has been assigned by the loop before we read this array.
-    std.debug.print("\nLayer output: [{d:.1}, {d:.1}, {d:.1}]\n", .{
-        outputs[0], outputs[1], outputs[2],
+    std.debug.print("\nLayer output: [{d:.1}, {d:.1}, {d:.1}, {d:.1}]\n", .{
+        outputs[0], outputs[1], outputs[2], outputs[3],
     });
 }
