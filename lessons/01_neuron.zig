@@ -6,8 +6,8 @@ pub fn main() void {
 
     // Each weight controls how much its matching input contributes.
     // These are hand-picked for learning; a trained model loads its weights.
-    const weights = [3]f32{ 0.5, 1.0, 2.0 };
-    const bias: f32 = 0.5;
+    const weights = [3]f32{ 0.5, -1.0, 2.0 };
+    const bias: f32 = -0.5;
 
     // A dot product: multiply matching pairs, then add the products.
     var sum: f32 = 0.0;
