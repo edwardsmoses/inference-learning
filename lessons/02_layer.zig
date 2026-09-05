@@ -6,13 +6,14 @@ pub fn main() void {
 
     // A matrix: an array of rows. Each row holds one neuron's weights.
     // [3][3]f32 means three rows, each containing three floats.
-    const weights = [3][3]f32{
+    const weights = [4][3]f32{
         .{ 0.5, -1.0, 2.0 },
         .{ 1.0, 1.0, 4.0 },
         .{ -1.0, 0.0, -1.0 },
+        .{ -3.0, 5.0, -1.0 },
     };
-    const biases = [3]f32{ 0.5, -1.0, 0.5 };
-    var outputs: [3]f32 = undefined;
+    const biases = [4]f32{ 0.5, -1.0, 0.5, 3.0 };
+    var outputs: [4]f32 = undefined;
 
     // 0.. supplies an index alongside each row and bias.
     for (weights, biases, 0..) |row, bias, neuron_index| {
